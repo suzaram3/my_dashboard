@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	{% block head %}
+	<!-- metadata -->
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- if title -->
+	<title>{% block title %}{% if title %}{{ title }}{% endif %}{% endblock %}</title>
+
+	<!-- css links and fonts -->
+	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+	<link rel="preconnect" href="https://fonts.googleapis.com"> 
+	<link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
+	{% endblock %}
+</head>
+<body>
+
+<!--- Header Showcase --->
+	{% block navbar %}
+	<div class="header">
+		<nav class="nav-bar">
+			<ul class="nav-ul">
+				{% if current_user.is_authenticated %}
+				<li class="nav-item"><a class="nav-link" href="{{ url_for('main.index') }}">Home</a></li>
+				<li class="nav-item"><a class="nav-link" href="{{ url_for('main.contacts') }}">Contacts</a></li>
+				<li class="nav-item"><a class="nav-link" href="{{ url_for('auth.logout') }}">Log Out</a></li>
+				{% else %}
+				<li class="nav-item"><a class="nav-link" href="{{ url_for('auth.login') }}">Log In</a></li>
+				{% endif %}
+			</ul>		
+		</nav>
+	</div>
+	{% endblock %}
+
+<!--- Main Area --->
+{% block content %}
+	<div class="main">
+		{% for message in get_flashed_messages() %}
+		<div class="alert">
+			{{ message }}
+		</div>
+		{% endfor %}
+
+	{% block page_content %}{% endblock %}
+	</div>
+{% endblock %}
+
+	<!--- Footer --->
+	<div class="footer">
+		<p><small>Project By M.Suzara</small></p>
+	</div>
+</body>
+</html>
+

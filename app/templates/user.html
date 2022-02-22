@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}User{% endblock %}
+
+{% block navbar %}
+<div class="navbar" role="navigation">
+    <div class="container">
+            <ul class="nav navbar-nav">
+                <li><a href="/">Home</a></li>
+                <li><a href="/">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="page-header">
+        <h1>Hello, {{ name.title() }}!</h1>
+    </div>
+</div>
+{% endblock %}

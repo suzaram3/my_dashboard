@@ -1,0 +1,146 @@
+/* ---------------------------------------------- */
+/* ---Color Variables---------------------------- */
+/* ---------------------------------------------- */
+:root {
+	--gumbo: #5F8884;
+	--just_right: #E0BEB1;
+	--scorpion: #78656C;
+	--deep_fir: #043A14;
+	--black_pearl: #002033;
+	--black_pearl_complement: #331300;
+	--off_white: #F9F5EC;
+	--off_white_complement: #EBEFF7;
+	--hover_orange: #c05139;
+	--alert_yellow: #FFE368;
+	
+}
+
+/* ---Core--------------------------------------- */
+body {
+	background-color: var(--off_white);	
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 1.1em;
+	line-height: 1.5;
+	margin: 0;
+	text-align: center;
+}
+
+h1,
+h2,
+h3 {
+	margin: 0;
+	padding: 1em 0;
+}
+
+p {
+	margin: 0;
+	padding: 1em 0;
+}
+
+/* ---Header----------------------------------- */
+.header {
+	background-color: var(--off_white_complement);
+	padding: 1em;
+}
+
+/* ---Nav-------------------------------------- */
+nav ul {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	list-style-type: none;
+	padding: 0 1em;
+}
+
+.nav-link {
+	color : var(--black_pearl);
+	text-decoration: none;
+}
+
+.nav-link:hover {
+	color: var(--hover_orange);
+}
+
+/* ---Main------------------------------------- */
+.main {
+	min-height: 100%;
+}
+
+/* ---Footer----------------------------------- */
+.footer {
+	background-color: var(--off_white_complement);
+	bottom: 0;
+	color : var(--black_pearl);
+	padding: 0.5em;
+	position: fixed;
+	text-align: center;
+	width: 100%;
+}
+
+/* -------------------------------------------- */
+/* ---Components------------------------------- */
+/* -------------------------------------------- */
+
+/* ---Alert------------------------------------ */
+.alert {
+	background-color: var(--alert_yellow);
+	border: 2px solid var(--black_pearl);
+	border-radius: 4px;
+	display: flex;
+	font-size: 16px;
+	padding: 1em;
+	width: 50%;
+}
+
+/* ---Button----------------------------------- */
+.button {
+	border: none;
+	border-radius: 4px;
+	color: white;
+	cursor: pointer;
+	font-size: 14px;
+	padding: 1em;
+	text-decoration: none;
+	width: 10%;
+}
+
+.button-add {
+	background-color: var(--black_pearl);
+}
+
+.button:visited {
+	color: white;
+}
+
+.button-delete {
+	background-color: red;
+}
+
+/* ---Form------------------------------------- */
+form {
+	box-sizing: border-box;
+	border-radius: 1rem;
+	display: grid;
+	font-family: Arial, Helvetica, sans-serif;
+	gap: 2rem;
+	grid-template-columns: 1fr;
+	padding: 2rem;
+	text-align: left;
+}
+
+/* ---Input------------------------------------ */
+input[type=text], input[type=number], input[type=password], textarea {
+	border: 1px solid var(--black_pearl);
+	border-radius: 4px;
+	box-sizing: border-box;
+	display: flex;
+	font-size: 16px;
+	padding: 1em;
+	width: 25%;
+}
+
+/* ---Table------------------------------------ */
+tr:nth-child(even) {
+	background-color: var(--off_white_complement);
+}

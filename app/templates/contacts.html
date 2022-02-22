@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>{{ current_user.username.title() }}'s Contacts</h2>
+{% if contacts %}
+	<form action="" method="post" name="contact_list">
+		<table>
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>First</th>
+					<th>Last</th>
+					<th>Phone</th>
+					<th>Email</th>
+					<th>Frequency</th>
+					<th>Last Contact</th>
+					<th>Next Contact</th>
+					<th>Notes</th>
+				</tr>
+			</thead>
+			<tbody>
+			{% for contact in contacts %}
+				<tr>
+					<td>
+						{{ contact.id }}
+						</a>
+					</td>
+					<td>
+						{{ contact.first }}
+					</td>
+					<td>
+						{{ contact.last }}
+					</td>
+					<td>
+						{{ contact.phone }}
+					</td>
+					<td>
+						{{ contact.email }}
+					</td>
+					<td>
+						{{ contact.frequency }}
+					</td>
+					<td>
+						{{ contact.last_contact }}
+					</td>
+					<td>
+						{{ contact.next_contact }}
+					</td>
+					<td>
+						{{ contact.notes }}
+					</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	<a class="button button-add" href="{{ url_for('main.contacts') }}">Add Contact</a>
+	<br>
+	</form>
+	{% else %}
+		<h3 class="no-content">No Contacts At This Time</h3>
+{% endif %}
+{% endblock %}
