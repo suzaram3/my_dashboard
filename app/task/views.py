@@ -33,7 +33,7 @@ def new_task():
         )
         db.session.add(task)
         db.session.commit()
-        flash("Task has been created!".format(task.id), "success")
+        flash("Task has been created!".format(task.description), "success")
         return redirect(url_for("task.tasks"))
     return render_template("task/task_edit.html", title="New Task", form=form)
 
@@ -52,7 +52,7 @@ def update_task(task_id):
         task.due_date = form.due_date.data
         task.status = form.status.data
         db.session.commit()
-        flash("Task {} has been updated".format(task.id), "success")
+        flash("Task {} has been updated".format(task.description), "success")
         return redirect(url_for("task.tasks"))
     elif request.method == "GET":
         form.description.data = task.description
