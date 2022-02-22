@@ -25,16 +25,20 @@
 						</a>
 					</td>
 					<td>
-						{{ contact.first }}
+						{{ contact.first.title() }}
 					</td>
 					<td>
-						{{ contact.last }}
+						{{ contact.last.title() }}
 					</td>
 					<td>
 						{{ contact.phone }}
 					</td>
 					<td>
-						{{ contact.email }}
+						{% if contact.email %}
+						<a href="mailto:{{ contact.email }}">Email</a>
+						{% else %}
+						None
+						{% endif %}
 					</td>
 					<td>
 						{{ contact.frequency }}

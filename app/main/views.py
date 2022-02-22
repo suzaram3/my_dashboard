@@ -14,6 +14,8 @@ def index():
 @main.route("/contacts")
 def contacts():
     contacts = Contact.query.all()
+    for contact in contacts:
+        contact.update_next_contact()
     return render_template("contacts.html", title="Contacts", contacts=contacts)
 
 

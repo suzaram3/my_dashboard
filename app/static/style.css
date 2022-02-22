@@ -8,6 +8,7 @@
 	--deep_fir: #043A14;
 	--black_pearl: #002033;
 	--black_pearl_complement: #331300;
+	--light_gray_cyan: #ebf4f7;
 	--off_white: #F9F5EC;
 	--off_white_complement: #EBEFF7;
 	--hover_orange: #c05139;
@@ -142,5 +143,5 @@ input[type=text], input[type=number], input[type=password], textarea {
 
 /* ---Table------------------------------------ */
 tr:nth-child(even) {
-	background-color: var(--off_white_complement);
+	background-color: var(--light_gray_cyan);
 }
