@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<br>
+<div class="content-section">
+	<fieldset>
+		<legend>Task {{ legend }}</legend>
+		<p>{{ task.description }}</p>
+		<p>{{ task.due_date }}</p>
+		<p>{{ task.status }}</p>
+		<br>
+		<div class="button-wrapper">
+			<a href="{{ url_for('task.update_task', task_id=task.id) }}" class="button button-add">Update</a>
+			<a href="{{ url_for('task.delete_task', task_id=task.id) }}" class="button button-delete">Delete</a>
+		</div>
+		<br>
+	</fieldset>
+</div>	
+{% endblock %}

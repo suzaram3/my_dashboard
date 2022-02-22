@@ -33,4 +33,7 @@ def create_app(config_name):
     from .cont import cont as contact_blueprint
     app.register_blueprint(contact_blueprint, url_prefix="/contact")
 
+    from .task import task as task_blueprint
+    app.register_blueprint(task_blueprint, url_prefix="/task")
+
     return app

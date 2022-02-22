@@ -60,6 +60,15 @@ class User(UserMixin, db.Model):
     def verify_password(self, password):
         return check_password_hash(self.password_hash, password)
 
+class Task(db.Model):
+    __tablename__ = "tasks"
+    id = db.Column(db.Integer, primary_key=True)
+    description = db.Column(db.String(40), nullable=False)
+    due_date = db.Column(db.String(10), nullable=False)
+    status = db.Column(db.String(10), nullable=False)
+
+    def __repr__(self):
+        return f"Task('{self.description}', '{self.due_date}', '{self.status}')"
 
 @login_manager.user_loader
 def load_user(user_id):

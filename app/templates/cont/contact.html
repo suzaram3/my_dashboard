@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<br>
+<div class="contact-section">
+	<fieldset>
+		<h3>{{ contact.first.title() }} {{ contact.last.title() }}</h3>
+		<dl>
+			<dt>Contact Info</dt>
+				<dd>Phone:{{ contact.phone }}</dd>
+				<dd>Email: {{ contact.email }}</dd>
+				{% if contact.frequency > 0 %}
+			<dt>Contact Dates</dt>
+				<dd>Last: {{ contact.last_contact }}</dd>
+				<dd>Next: {{ contact.next_contact }}</dd>
+				{% endif %}
+			<dt>Notes</dt>
+				<dd>{{ contact.notes }}</dd>
+		</dl>
+			
+			<br>
+		<div class="button-wrapper">
+			<a href="{{ url_for('cont.update_contact', contact_id=contact.id) }}" class="button button-add">Update</a>
+			<a href="{{ url_for('cont.delete_contact', contact_id=contact.id) }}" class="button button-delete">Delete</a>
+		</div>
+		<br>
+	</fieldset>
+</div>	
+{% endblock %}

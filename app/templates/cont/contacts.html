@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block content %}
+{% block page_content %}
 <h2>{{ current_user.username.title() }}'s Contacts</h2>
 {% if contacts %}
 	<form action="" method="post" name="contact_list">
@@ -21,6 +21,7 @@
 			{% for contact in contacts %}
 				<tr>
 					<td>
+						<a class="" href="{{ url_for('cont.contact_view', contact_id=contact.id) }}">
 						{{ contact.id }}
 						</a>
 					</td>
@@ -56,7 +57,7 @@
 				{% endfor %}
 			</tbody>
 		</table>
-	<a class="button button-add" href="{{ url_for('main.contacts') }}">Add Contact</a>
+	<a class="button button-add" href="{{ url_for('cont.contacts') }}">Add Contact</a>
 	<br>
 	</form>
 	{% else %}

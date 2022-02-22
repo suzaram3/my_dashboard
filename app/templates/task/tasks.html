@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block page_content %}
+{% if current_user.is_authenticated %}
+<section id="tasks">
+	{% if tasks %}
+	<h2>{{ current_user.username.title() }}'s Tasks</h2>
+	<form action="" method="post" name="task_list">
+	<table>
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Description</th>
+				<th>Due</th>
+				<th>Status</th>
+			</tr>
+		</thead>
+		<tbody>
+		{% for task in tasks %}
+			<tr>
+				<td>
+					<a class="task-id" href="{{ url_for('task.task_view', task_id=task.id) }}">
+					{{ task.id }}
+					</a>
+				</td>
+				<td>
+					{{ task.description }} 
+				</td>
+				<td>
+					{{ task.due_date }} 
+				</td>
+				<td>
+					{{ task.status }} 
+				</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	</form>
+	{% else %}
+		<h3 class="no-content">No Tasks At This Time</h3>
+	{% endif %}
+</div>
+	<a class="button button-add" href="{{ url_for('task.new_task') }}">Add Task</a>
+{% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="content-section">
+	<form method="POST" action="">
+		{{ form.hidden_tag() }}
+		<fieldset>
+			<legend>{{ legend }}</legend>
+			<br>
+			<div class="form-group">
+				{{ form.first.label }}
+				{% if form.first.errors %}
+					{{ form.first(class="form-control form-control-lg is-invalid") }}
+					<div class="invalid-feedback">
+						{% for error in form.first.errors %}
+							<span>{{ error }}</span>
+						{% endfor %}
+					</div>	
+				{% else %}		
+					{{ form.first(class="form-control form-control-lg") }}
+				{% endif %}
+			</div>
+			<div class="form-group">
+				{{ form.last.label(class="form-control-label") }}
+				{% if form.last.errors %}
+					{{ form.last(class="form-control form-control-lg is-invalid") }}
+					<div class="invalid-feedback">
+						{% for error in form.last.errors %}
+							<span>{{ error }}</span>
+						{% endfor %}
+					</div>	
+				{% else %}		
+					{{ form.last(class="form-control form-control-lg") }}
+				{% endif %}
+			</div>
+			<div class="form-group">
+				{{ form.phone.label(class="form-control-label") }}
+				{% if form.phone.errors %}
+					{{ form.phone(class="form-control form-control-lg is-invalid") }}
+					<div class="invalid-feedback">
+						{% for error in form.phone.errors %}
+							<span>{{ error }}</span>
+						{% endfor %}
+					</div>	
+				{% else %}		
+					{{ form.phone(class="form-control form-control-lg") }}
+				{% endif %}
+			</div>
+			<div class="form-group">
+				{{ form.email.label(class="form-control-label") }}
+				{% if form.email.errors %}
+					{{ form.email(class="form-control form-control-lg is-invalid") }}
+					<div class="invalid-feedback">
+						{% for error in form.email.errors %}
+							<span>{{ error }}</span>
+						{% endfor %}
+					</div>	
+				{% else %}		
+					{{ form.email(class="form-control form-control-lg") }}
+				{% endif %}
+			<div class="form-group">
+				{{ form.frequency.label(class="form-control-label") }}
+				{% if form.frequency.errors %}
+					{{ form.frequency(class="form-control form-control-lg is-invalid") }}
+					<div class="invalid-feedback">
+						{% for error in form.frequency.errors %}
+							<span>{{ error }}</span>
+						{% endfor %}
+					</div>	
+				{% else %}		
+					{{ form.frequency(class="form-control form-control-lg") }}
+				{% endif %}
+			<div class="form-group">
+				{{ form.last_contact.label(class="form-control-label") }}
+				{% if form.last_contact.errors %}
+					{{ form.last_contact(class="form-control form-control-lg is-invalid") }}
+					<div class="invalid-feedback">
+						{% for error in form.last_contact.errors %}
+							<span>{{ error }}</span>
+						{% endfor %}
+					</div>	
+				{% else %}		
+					{{ form.last_contact(class="form-control form-control-lg") }}
+				{% endif %}
+			</div>
+			<div class="form-group">
+				{{ form.next_contact.label(class="form-control-label") }}
+				{% if form.next_contact.errors %}
+					{{ form.next_contact(class="form-control form-control-lg is-invalid") }}
+					<div class="invalid-feedback">
+						{% for error in form.next_contact.errors %}
+							<span>{{ error }}</span>
+						{% endfor %}
+					</div>	
+				{% else %}		
+					{{ form.next_contact(class="form-control form-control-lg") }}
+				{% endif %}
+			<div class="form-group">
+				{{ form.notes.label(class="form-control-label") }}
+				{% if form.notes.errors %}
+					{{ form.notes(class="form-control form-control-lg is-invalid") }}
+					<div class="invalid-feedback">
+						{% for error in form.notes.errors %}
+							<span>{{ error }}</span>
+						{% endfor %}
+					</div>	
+				{% else %}		
+					{{ form.notes(class="form-control form-control-lg") }}
+				{% endif %}
+			<div class="form-group">
+				{{ form.submit(class="button button-add") }}
+			</div>
+		</fieldset>
+	</form>
+</div>
+{% endblock %}
