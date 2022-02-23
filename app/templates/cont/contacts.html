@@ -66,10 +66,10 @@
 			</tbody>
 		</table>
 	<a class="button button-add" href="{{ url_for('cont.new_contact') }}">Add Contact</a>
-	<a class="button button-add" href="{{ url_for('cont.contacts') }}">Update Dates</a>
+	<a class="button button-add" href="{{ url_for('cont.check_next_contact_date') }}">Check Dates</a>
 	<br>
 	</form>
-	{% else %}
-		<h3 class="no-content">No Contacts At This Time</h3>
+{% else %}
+	<h3 class="no-content">All Caught Up!</h3>
 {% endif %}
 {% endblock %}

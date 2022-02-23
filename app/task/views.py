@@ -21,7 +21,7 @@ def tasks():
     tasks_list = Task.query.all()
     return render_template("task/tasks.html", title="Tasks", tasks=tasks_list)
 
-task.route("/new", methods=["GET", "POST"])
+@task.route("/new", methods=["GET", "POST"])
 @login_required
 def new_task():
     form = TaskForm()

@@ -1,3 +1,4 @@
+from datetime import date, datetime
 from flask import flash, render_template, session, redirect, request, url_for
 from flask_login import login_required
 from . import cont
@@ -5,30 +6,28 @@ from .forms import ContactForm
 from .. import db
 from ..models import User, Contact
 
-@cont.route("/contacts/<int:contact_id>/delete", methods=["GET", "POST"])
+@cont.route('/contacts/<int:contact_id>/delete', methods=['GET', 'POST'])
 @login_required
 def delete_contact(contact_id):
     contact = Contact.query.get_or_404(contact_id)
     db.session.delete(contact)
     db.session.commit()
-    flash("Contact {} has been deleted".format(contact.first), "success")
-    return redirect(url_for("cont.contacts"))
+    flash('Contact {} has been deleted'.format(contact.first), 'success')
+    return redirect(url_for('cont.contacts'))
 
-@cont.route("/contacts", methods=["GET"])
+@cont.route('/contacts', methods=['GET'])
 @login_required
 def contacts():
-    contacts = Contact.query.all()
-    #for contact in contacts:
-    #    contact.update_next_contact()
-    return render_template("cont/contacts.html", title="Contacts", contacts=contacts)
+    contacts = Contact.query.order_by(Contact.first).all()
+    return render_template('cont/contacts.html', title='Contacts', contacts=contacts)
 
-@cont.route("/contacts/<int:contact_id>", methods=["GET"])
+@cont.route('/contacts/<int:contact_id>', methods=['GET'])
 @login_required
 def contact_view(contact_id):
     contact = Contact.query.get_or_404(contact_id)
-    return render_template("cont/contact.html", contact=contact)
+    return render_template('cont/contact.html', contact=contact)
 
-@cont.route("/new", methods=["GET", "POST"])
+@cont.route('/new', methods=['GET', 'POST'])
 @login_required
 def new_contact():
     form = ContactForm()
@@ -37,6 +36,7 @@ def new_contact():
             first=form.first.data,
             last=form.last.data,
             phone=form.phone.data,
+            email=form.email.data,
             frequency=form.frequency.data,
             last_contact=form.last_contact.data,
             next_contact=form.next_contact.data,
@@ -44,11 +44,12 @@ def new_contact():
         )
         db.session.add(contact)
         db.session.commit()
-        flash("{} has been created!".format(contact.first), "success")
-        return redirect(url_for("cont.contacts"))
-    return render_template("cont/contact_edit.html", title="New Contact", form=form)
+        contact.update_next_contact()
+        flash('{} has been created!'.format(contact.first), 'success')
+        return redirect(url_for('cont.contacts'))
+    return render_template('cont/contact_edit.html', title='New Contact', form=form)
 
-@cont.route("/contacts/<int:contact_id>/update", methods=["GET", "POST"])
+@cont.route('/contacts/<int:contact_id>/update', methods=['GET', 'POST'])
 @login_required
 def update_contact(contact_id):
     contact = Contact.query.get_or_404(contact_id)
@@ -64,9 +65,9 @@ def update_contact(contact_id):
         db.session.add(contact)
         db.session.commit()
         contact.update_next_contact()
-        flash("Contact {} has been updated".format(contact.first), "success")
-        return redirect(url_for("cont.contacts"))
-    elif request.method == "GET":
+        flash('Contact {} has been updated'.format(contact.first), 'success')
+        return redirect(url_for('cont.contacts'))
+    elif request.method == 'GET':
         form.first.data = contact.first
         form.last.data = contact.last
         form.phone.data = contact.phone
@@ -76,5 +77,15 @@ def update_contact(contact_id):
         form.next_contact.data = contact.next_contact
         form.notes.data = contact.notes
     return render_template(
-        "cont/contact_edit.html", title="Edit Contact", form=form
+        'cont/contact_edit.html', title='Edit Contact', form=form
     )
+
+@cont.route('contacts/today_contacts', methods=['GET'])
+@login_required
+def check_next_contact_date():
+    t = date.today()
+    today = t.strftime('%Y-%m-%d')
+    contact_query = Contact.query.filter(Contact.next_contact == today)
+    contacts = [contact for contact in contact_query]
+    return render_template('cont/contacts.html', title='Contacts For Today', contacts=contacts)
+
