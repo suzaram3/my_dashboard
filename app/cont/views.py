@@ -28,16 +28,42 @@ def contact_view(contact_id):
     contact = Contact.query.get_or_404(contact_id)
     return render_template("cont/contact.html", contact=contact)
 
+@cont.route("/new", methods=["GET", "POST"])
+@login_required
+def new_contact():
+    form = ContactForm()
+    if form.validate_on_submit():
+        contact = Contact(
+            first=form.first.data,
+            last=form.last.data,
+            phone=form.phone.data,
+            frequency=form.frequency.data,
+            last_contact=form.last_contact.data,
+            next_contact=form.next_contact.data,
+            notes=form.notes.data
+        )
+        db.session.add(contact)
+        db.session.commit()
+        flash("{} has been created!".format(contact.first), "success")
+        return redirect(url_for("cont.contacts"))
+    return render_template("cont/contact_edit.html", title="New Contact", form=form)
 
 @cont.route("/contacts/<int:contact_id>/update", methods=["GET", "POST"])
 @login_required
 def update_contact(contact_id):
     contact = Contact.query.get_or_404(contact_id)
-    form = ContactForm()
+    form = ContactForm(contact=contact)
     if form.validate_on_submit():
         contact.first = form.first.data
+        contact.last = form.last.data
+        contact.phone = form.phone.data
         contact.frequency = form.frequency.data
+        contact.last_contact = form.last_contact.data
+        contact.next_contact = form.next_contact.data
+        contact.notes = form.notes.data
+        db.session.add(contact)
         db.session.commit()
+        contact.update_next_contact()
         flash("Contact {} has been updated".format(contact.first), "success")
         return redirect(url_for("cont.contacts"))
     elif request.method == "GET":

@@ -32,7 +32,11 @@
 						{{ contact.last.title() }}
 					</td>
 					<td>
+						{% if contact.phone %}
 						{{ contact.phone }}
+						{% else %}
+						None	
+						{% endif %}
 					</td>
 					<td>
 						{% if contact.email %}
@@ -51,13 +55,18 @@
 						{{ contact.next_contact }}
 					</td>
 					<td>
+						{% if contact.notes %}
 						{{ contact.notes }}
+						{% else %}
+						None	
+						{% endif %}
 					</td>
 				</tr>
 				{% endfor %}
 			</tbody>
 		</table>
-	<a class="button button-add" href="{{ url_for('cont.contacts') }}">Add Contact</a>
+	<a class="button button-add" href="{{ url_for('cont.new_contact') }}">Add Contact</a>
+	<a class="button button-add" href="{{ url_for('cont.contacts') }}">Update Dates</a>
 	<br>
 	</form>
 	{% else %}
