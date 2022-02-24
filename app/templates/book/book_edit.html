@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="content-section">
+	<form method="POST" action="">
+		{{ form.hidden_tag() }}
+		<fieldset>
+			<legend>{{ legend }}</legend>
+			<br>
+			<div class="form-group">
+				{{ form.book_title.label }}
+				{% if form.book_title.errors %}
+					{{ form.book_title(class="form-control form-control-lg is-invalid") }}
+					<div class="invalid-feedback">
+						{% for error in form.book_title.errors %}
+							<span>{{ error }}</span>
+						{% endfor %}
+					</div>	
+				{% else %}		
+					{{ form.book_title(class="form-control form-control-lg") }}
+				{% endif %}
+			</div>
+			<div class="form-group">
+				{{ form.book_author.label(class="form-control-label") }}
+				{% if form.book_author.errors %}
+					{{ form.book_author(class="form-control form-control-lg is-invalid") }}
+					<div class="invalid-feedback">
+						{% for error in form.book_author.errors %}
+							<span>{{ error }}</span>
+						{% endfor %}
+					</div>	
+				{% else %}		
+					{{ form.book_author(class="form-control form-control-lg") }}
+				{% endif %}
+			</div>
+			<div class="form-group">
+				{{ form.book_shelf.label(class="form-control-label") }}
+				{% if form.book_shelf.errors %}
+					{{ form.book_shelf(class="form-control form-control-lg is-invalid") }}
+					<div class="invalid-feedback">
+						{% for error in form.book_shelf.errors %}
+							<span>{{ error }}</span>
+						{% endfor %}
+					</div>	
+				{% else %}		
+					{{ form.book_shelf(class="form-control form-control-lg") }}
+				{% endif %}
+			</div>
+			<div class="form-group">
+				{{ form.book_read.label(class="form-control-label") }}
+				{% if form.book_read.errors %}
+					{{ form.book_read(class="form-control form-control-lg is-invalid") }}
+					<div class="invalid-feedback">
+						{% for error in form.book_read.errors %}
+							<span>{{ error }}</span>
+						{% endfor %}
+					</div>	
+				{% else %}		
+					{{ form.book_read(class="form-control form-control-lg") }}
+				{% endif %}
+			</div>
+			<div class="form-group">
+				{{ form.submit(class="button button-add") }}
+			</div>
+		</fieldset>
+	</form>
+</div>
+{% endblock %}

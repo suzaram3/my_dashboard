@@ -3,6 +3,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
 
+
 class TaskForm(FlaskForm):
     week_out = date.today() + timedelta(days=7)
     description = StringField("Description", validators=[DataRequired()])

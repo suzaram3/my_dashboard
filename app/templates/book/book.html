@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<br>
+<div class="content-section">
+	<fieldset>
+		<legend>Book {{ legend }}</legend>
+		<p>{{ book.title.title() }}</p>
+		<p>{{ book.author.title() }}</p>
+		<p>{{ book.shelf }}</p>
+		<p>{{ book.read }}</p>
+		<br>
+		<div class="button-wrapper">
+			<a href="{{ url_for('book.update_book', book_id=book.book_id) }}" class="button button-add">Update</a>
+			<a href="{{ url_for('book.delete_book', book_id=book.book_id) }}" class="button button-delete">Delete</a>
+		</div>
+		<br>
+	</fieldset>
+</div>	
+{% endblock %}

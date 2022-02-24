@@ -31,7 +31,7 @@
 					<td>
 						{{ contact.last.title() }}
 					</td>
-					<td>
+					<td class="col-nowrap">
 						{% if contact.phone %}
 						{{ contact.phone }}
 						{% else %}
@@ -54,7 +54,7 @@
 					<td>
 						{{ contact.next_contact }}
 					</td>
-					<td>
+					<td class="col-wrap">
 						{% if contact.notes %}
 						{{ contact.notes }}
 						{% else %}
