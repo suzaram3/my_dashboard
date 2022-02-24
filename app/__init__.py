@@ -24,16 +24,24 @@ def create_app(config_name):
     # moment.init_app(app)
     db.init_app(app)
 
-    from .main import main as main_blueprint
-    app.register_blueprint(main_blueprint)
-
     from .auth import auth as auth_blueprint
+
     app.register_blueprint(auth_blueprint, url_prefix="/auth")
 
+    from .book import book as book_blueprint
+
+    app.register_blueprint(book_blueprint, url_prefix="/book")
+
     from .cont import cont as contact_blueprint
+
     app.register_blueprint(contact_blueprint, url_prefix="/contact")
 
+    from .main import main as main_blueprint
+
+    app.register_blueprint(main_blueprint)
+
     from .task import task as task_blueprint
+
     app.register_blueprint(task_blueprint, url_prefix="/task")
 
     return app

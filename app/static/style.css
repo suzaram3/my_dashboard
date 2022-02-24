@@ -161,6 +161,10 @@ tr:nth-child(even) {
 	background-color: var(--light_gray_cyan);
 }
 
+.col-nowrap {
+	white-space: nowrap;
+}
+
 /* ---Description Details---------------------- */
 dt {
 	font-weight: bold;

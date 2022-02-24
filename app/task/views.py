@@ -15,11 +15,13 @@ def delete_task(task_id):
     flash("Task {} has been deleted".format(task.id), "success")
     return redirect(url_for("task.tasks"))
 
+
 @task.route("/tasks")
 @login_required
 def tasks():
     tasks_list = Task.query.all()
     return render_template("task/tasks.html", title="Tasks", tasks=tasks_list)
+
 
 @task.route("/new", methods=["GET", "POST"])
 @login_required
@@ -37,10 +39,12 @@ def new_task():
         return redirect(url_for("task.tasks"))
     return render_template("task/task_edit.html", title="New Task", form=form)
 
+
 @task.route("/task/<int:task_id>")
 def task_view(task_id):
     task = Task.query.get_or_404(task_id)
     return render_template("task/task.html", task=task, legend=task.id)
+
 
 @task.route("/tasks/<int:task_id>/update", methods=["GET", "POST"])
 @login_required

@@ -25,6 +25,7 @@
 			<ul class="nav-ul">
 				{% if current_user.is_authenticated %}
 				<li class="nav-item"><a class="nav-link" href="{{ url_for('main.index') }}">Home</a></li>
+				<li class="nav-item"><a class="nav-link" href="{{ url_for('book.books') }}">Books</a></li>
 				<li class="nav-item"><a class="nav-link" href="{{ url_for('cont.contacts') }}">Contacts</a></li>
 				<li class="nav-item"><a class="nav-link" href="{{ url_for('task.tasks') }}">Tasks</a></li>
 				<li class="nav-item"><a class="nav-link" href="{{ url_for('auth.logout') }}">Log Out</a></li>
@@ -55,4 +56,3 @@
 	</div>
 </body>
 </html>
-
