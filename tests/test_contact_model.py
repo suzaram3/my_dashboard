@@ -18,10 +18,7 @@ class ContactModelTestCase(unittest.TestCase):
 
     def test_update_next_contact(self):
         """Testing update next contact date"""
-        c = Contact(first='test', last='jones', frequency=4, last_contact='2022-01-01')
+        c = Contact(first="test", last="jones", frequency=4, last_contact="2022-01-01")
         db.session.add(c)
-        lc = date.fromisoformat(c.last_contact)
-        nc = lc + timedelta(days=c.frequency * 30)
-        next_contact_date = nc.strftime('%Y-%m-%d')
-        test = db.session.query(Contact).filter(Contact.first == "test").update({Contact.next_contact: next_contact_date})
-        self.assertEqual(c.next_contact, next_contact.strftime("%Y-%m-%d"))
+        c.update_next_contact()
+        self.assertEqual(c.next_contact, ("2022-05-01"))
