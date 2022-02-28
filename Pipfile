@@ -15,6 +15,7 @@ email-validator = "*"
 flask-sqlalchemy = "*"
 flask-migrate = "*"
 flask-script = "*"
+flask-moment = "*"
 
 [dev-packages]
 

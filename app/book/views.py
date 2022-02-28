@@ -19,7 +19,7 @@ def delete_book(book_id):
 @book.route("/books")
 @login_required
 def books():
-    books = Book.query.all()
+    books = Book.query.order_by(Book.book_author).all()
     return render_template("book/books.html", title="books", books=books)
 
 
