@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block page_content %}
 <h2>{{ current_user.username.title() }}'s Contacts</h2>
+<a class="button button-add" href="{{ url_for('cont.new_contact') }}">Add Contact</a>
 {% if contacts %}
 	<form action="" method="post" name="contact_list">
 		<table>
@@ -65,9 +66,7 @@
 				{% endfor %}
 			</tbody>
 		</table>
-	<a class="button button-add" href="{{ url_for('cont.new_contact') }}">Add Contact</a>
-	<a class="button button-add" href="{{ url_for('cont.check_next_contact_date') }}">Check Dates</a>
-	<br>
+		<br>
 	</form>
 {% else %}
 	<h3 class="no-content">All Caught Up!</h3>

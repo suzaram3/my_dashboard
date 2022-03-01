@@ -2,47 +2,48 @@
 {% block page_content %}
 {% if current_user.is_authenticated %}
 	{% if books %}
-	<h2>{{ current_user.username.title() }}'s books</h2>
+	<h2>{{ current_user.username.title() }}'s Books</h2>
+	<a class="button button-add" href="{{ url_for('book.new_book') }}">Add Book</a>
 	<form action="" method="post" name="book_list">
-	<table>
-		<thead>
-			<tr>
-				<th>Id</th>
-				<th>Title</th>
-				<th>Author</th>
-				<th>Shelf</th>
-				<th>Read</th>
-			</tr>
-		</thead>
-		<tbody>
-		{% for book in books %}
-			<tr>
-				<td>
-					<a class="book-id" href="{{ url_for('book.book_view', book_id=book.book_id) }}">
-					{{ book.book_id }}
-					</a>
-				</td>
-				<td>
-					{{ book.book_title.title() }} 
-				</td>
-				<td>
-					{{ book.book_author.title() }} 
-				</td>
-				<td>
-					{{ book.book_shelf }} 
-				</td>
-				<td>
-					{{ book.book_read }} 
-				</td>
-			</tr>
-			{% endfor %}
-		</tbody>
-	</table>
+		<table>
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Title</th>
+					<th>Author</th>
+					<th>Shelf</th>
+					<th>Read</th>
+				</tr>
+			</thead>
+			<tbody>
+			{% for book in books %}
+				<tr>
+					<td>
+						<a class="book-id" href="{{ url_for('book.book_view', book_id=book.book_id) }}">
+						{{ book.book_id }}
+						</a>
+					</td>
+					<td>
+						{{ book.book_title.title() }} 
+					</td>
+					<td>
+						{{ book.book_author.title() }} 
+					</td>
+					<td>
+						{{ book.book_shelf }} 
+					</td>
+					<td>
+						{{ book.book_read }} 
+					</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
 	</form>
 	{% else %}
 		<h3 class="no-content">No Books At This Time</h3>
 	{% endif %}
 </div>
-	<a class="button button-add" href="{{ url_for('book.new_book') }}">Add Book</a>
+	
 {% endif %}
 {% endblock %}

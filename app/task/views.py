@@ -9,9 +9,9 @@ from ..models import User, Contact, Task, Permission
 @task.route("/tasks/<int:task_id>/delete", methods=["GET", "POST"])
 @login_required
 def delete_task(task_id):
+    task = Task.query.get_or_404(task_id)
     if current_user != task.user_id and not current_user.can(Permission.ADMIN):
         abort(403)
-    task = Task.query.get_or_404(task_id)
     db.session.delete(task)
     db.session.commit()
     flash("Task {} has been deleted".format(task.id), "success")

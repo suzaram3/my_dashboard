@@ -2,8 +2,9 @@
 {% block page_content %}
 {% if current_user.is_authenticated %}
 <section id="tasks">
-	{% if tasks %}
 	<h2>{{ current_user.username.title() }}'s Tasks</h2>
+	<a class="button button-add" href="{{ url_for('task.new_task') }}">Add Task</a>
+	{% if tasks %}
 	<form action="" method="post" name="task_list">
 	<table>
 		<thead>
@@ -35,12 +36,12 @@
 			{% endfor %}
 		</tbody>
 	</table>
+	<br>
 	</form>
 	{% else %}
 		<h3 class="no-content">No Tasks At This Time</h3>
 	{% endif %}
 </div>
-	<a class="button button-add" href="{{ url_for('task.new_task') }}">Add Task</a>
 {% endif %}
 </section>
 {% endblock %}
