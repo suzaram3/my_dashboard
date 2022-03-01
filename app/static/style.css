@@ -13,6 +13,7 @@
 	--off_white_complement: #EBEFF7;
 	--hover_orange: #c05139;
 	--alert_yellow: #FFE368;
+	--danger_red: #B83A3A;
 	
 }
 
@@ -112,6 +113,10 @@ nav ul {
 	background-color: var(--black_pearl);
 }
 
+.button-danger {
+	background-color: var(--danger_red);
+}
+
 .button:visited {
 	color: white;
 }
@@ -176,12 +181,31 @@ dt {
 /* ---------------------------------------------- */
 /* ---Page Specifics----------------------------- */
 /* ---------------------------------------------- */
-.profile-section {
+
+
+/* ---User Profile------------------------------- */
+div .profile-section {
+	display: grid;
+	grid-template-columns: 1fr 2fr;
+	align-items: start;
+	justify-items: center;
 	padding-left: 1em;
 	text-align: left;
 }
 
-.about-me {
+.col-2 h1 {
+	padding: 0;
+}
+
+.col-2 p {
+	padding: 0.5rem 0;
+}
+
+.col-2 .button-wrapper {
+	padding: 1em 0;
+}
+
+div .about-me {
 	line-height: 26px;
 	max-width: 670px;
 }

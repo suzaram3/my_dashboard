@@ -2,31 +2,39 @@
 {% block title %}Dashboard - {{ user.username.title() }}{% endblock %}
 {% block page_content %}
 <div class="profile-section">
-		<h1>{{ user.username.title() }}</h1>
-		{% if user.name or user.location %}
-		<p>
-			{% if user.name %}{{ user.name.title() }}{% endif %}
-			{% if user.location %}of
-			<a href="https://maps.google.com/?q={{ user.location }}">{{ user.location }}</a>
-			{% endif %}
-		</p>
-		{% endif%}
-		{% if current_user.is_administrator() %}
-		<p><a href="mailto:{{ user.email }}">{{ user.email }}</a></p>
-		{% endif%}
-		<div class="about-me">
-			{% if user.about_me %}<p>{{ user.about_me }}</p>{% endif %}
+		<div class="col-1">
+			<img class="profile-thumbnail" src="{{ user.gravatar(size=256) }}" alt="">
 		</div>
-    <p>
-			<small>
-			Member since {{ moment(user.member_since).format('LL') }}.
-			Last seen {{ moment(user.last_seen).fromNow() }}.
-			</small>
-    </p>
-	<p>
-		{% if user == current_user %}
-		<a class="button button-add" href="{{ url_for('.edit_profile') }}">Edit Profile</a>
-		{% endif %}
-	</p>
+		<div class="col-2">
+			<h1>{{ user.username.title() }}</h1>
+			{% if user.name or user.location %}
+			<p>
+				{% if user.name %}{{ user.name.title() }}{% endif %}
+				{% if user.location %}of
+					<a href="https://maps.google.com/?q={{ user.location }}">{{ user.location }}</a>
+				{% endif %}
+			</p>
+			{% endif%}
+			{% if current_user.is_administrator() %}
+				<p><a href="mailto:{{ user.email }}">{{ user.email }}</a></p>
+			{% endif%}
+			<div class="about-me">
+				{% if user.about_me %}<p>{{ user.about_me }}</p>{% endif %}
+			</div>
+			<p>
+				<small>
+				Member since {{ moment(user.member_since).format('LL') }}.
+				Last seen {{ moment(user.last_seen).fromNow() }}.
+				</small>
+			</p>
+			<div class="button-wrapper">
+				{% if user == current_user %}
+					<a class="button button-add" href="{{ url_for('.edit_profile') }}">Edit Profile</a>
+				{% endif %}
+				{% if current_user.is_administrator() %}
+					<a class="button button-danger" href="{{ url_for('.edit_profile_admin', id=user.id) }}">Edit Profile [Admin]</a>
+				{% endif %}
+			</div>
+		</div>
 </div>	
 {% endblock %}
