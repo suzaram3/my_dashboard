@@ -2,7 +2,7 @@ from datetime import date, datetime, timedelta
 from http import client
 import hashlib
 
-from flask import current_app, request
+from flask import current_app,  request
 from flask_login import AnonymousUserMixin, UserMixin
 from itsdangerous.url_safe import URLSafeSerializer
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -34,6 +34,7 @@ class Book(db.Model):
     book_author = db.Column(db.String(64), nullable=False)
     book_shelf = db.Column(db.String(64))
     book_read = db.Column(db.Integer)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
     def __repr__(self):
         return f"<Book: {self.book_title} by {self.book_author.title()}>"
@@ -50,6 +51,7 @@ class Contact(db.Model):
     last_contact = db.Column(db.String(10), default=today.strftime("%Y-%m-%d"))
     next_contact = db.Column(db.String(10))
     notes = db.Column(db.String)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
     def update_next_contact(self):
         if self.last_contact is not None:
@@ -216,6 +218,7 @@ class Task(db.Model):
     description = db.Column(db.String(40), nullable=False)
     due_date = db.Column(db.String(10), nullable=False)
     status = db.Column(db.String(10), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
     def __repr__(self):
         return f"Task({self.description}, {self.due_date}, {self.status})"

@@ -1,14 +1,16 @@
-from flask import flash, render_template, session, redirect, request, url_for
-from flask_login import login_required
+from flask import abort, flash, render_template, session, redirect, request, url_for
+from flask_login import current_user, login_required
 from . import task
 from .. import db
 from .forms import TaskForm
-from ..models import User, Contact, Task
+from ..models import User, Contact, Task, Permission
 
 
 @task.route("/tasks/<int:task_id>/delete", methods=["GET", "POST"])
 @login_required
 def delete_task(task_id):
+    if current_user != task.user_id and not current_user.can(Permission.ADMIN):
+        abort(403)
     task = Task.query.get_or_404(task_id)
     db.session.delete(task)
     db.session.commit()
@@ -19,7 +21,7 @@ def delete_task(task_id):
 @task.route("/tasks")
 @login_required
 def tasks():
-    tasks_list = Task.query.all()
+    tasks_list = Task.query.filter_by(user_id=current_user.id).all()
     return render_template("task/tasks.html", title="Tasks", tasks=tasks_list)
 
 
@@ -32,6 +34,7 @@ def new_task():
             description=form.description.data,
             due_date=form.due_date.data,
             status=form.status.data,
+            user_id=current_user.id,
         )
         db.session.add(task)
         db.session.commit()
@@ -50,6 +53,8 @@ def task_view(task_id):
 @login_required
 def update_task(task_id):
     task = Task.query.get_or_404(task_id)
+    if current_user != task.user_id and not current_user.can(Permission.ADMIN):
+        abort(403)
     form = TaskForm()
     if form.validate_on_submit():
         task.description = form.description.data

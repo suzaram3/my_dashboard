@@ -1,5 +1,5 @@
 from flask import flash, render_template, session, redirect, request, url_for
-from flask_login import login_required
+from flask_login import current_user, login_required
 from . import book
 from .. import db
 from .forms import BookForm
@@ -9,6 +9,8 @@ from ..models import Book
 @book.route("/books/<int:book_id>/delete", methods=["GET", "POST"])
 @login_required
 def delete_book(book_id):
+    if current_user != task.user_id and not current_user.can(Permission.ADMIN):
+        abort(403)
     book = book.query.get_or_404(book_id)
     db.session.delete(book)
     db.session.commit()
@@ -19,7 +21,7 @@ def delete_book(book_id):
 @book.route("/books")
 @login_required
 def books():
-    books = Book.query.order_by(Book.book_author).all()
+    books = Book.query.filter_by(user_id=current_user.id).order_by(Book.book_author).all()
     return render_template("book/books.html", title="books", books=books)
 
 
@@ -33,6 +35,7 @@ def new_book():
             book_author=form.book_author.data,
             book_shelf=form.book_shelf.data,
             book_read=form.book_read.data,
+            user_id=current_user._get_current_object(),
         )
         db.session.add(book)
         db.session.commit()
@@ -50,6 +53,8 @@ def book_view(book_id):
 @book.route("/books/<int:book_id>/update", methods=["GET", "POST"])
 @login_required
 def update_book(book_id):
+    if current_user != task.user_id and not current_user.can(Permission.ADMIN):
+        abort(403)
     book = book.query.get_or_404(book_id)
     form = TaskForm()
     if form.validate_on_submit():
