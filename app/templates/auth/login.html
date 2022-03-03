@@ -46,12 +46,10 @@
         </div>
         <br>
         <small class="text-muted">
-            <p>New user?</p>
-            <a href="{{ url_for('auth.register') }}">Register</a>
-        </small>
-        <small class="text-muted">
-            <p>Forgot Password?</p>
-          <a href="#">Reset</a>
+            <p>
+                New user? <a href="{{ url_for('auth.register') }}">Register</a><br>
+                Forgot Password? <a href="#">Reset</a>
+            </p>
         </small>
     </fieldset>
 </form>
