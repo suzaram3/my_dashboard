@@ -7,16 +7,18 @@ from ..decorators import admin_required
 from ..models import User
 
 
-@main.route('/')
+@main.route("/")
 def index():
-    return render_template('index.html', title='Home')
+    return render_template("index.html", title="Home")
 
-@main.route('/user/<username>')
+
+@main.route("/user/<username>")
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
-    return render_template('user.html', user=user)
+    return render_template("user.html", user=user)
 
-@main.route('/edit-profile', methods=['GET', 'POST'])
+
+@main.route("/edit-profile", methods=["GET", "POST"])
 @login_required
 def edit_profile():
     form = EditProfileForm()
@@ -26,14 +28,15 @@ def edit_profile():
         current_user.about_me = form.about_me.data
         db.session.add(current_user._get_current_object())
         db.session.commit()
-        flash('Your profile has been updated')
-        return redirect(url_for('.user', username=current_user.username))
+        flash("Your profile has been updated")
+        return redirect(url_for(".user", username=current_user.username))
     form.name.data = current_user.name
     form.location.data = current_user.location
     form.about_me.data = current_user.about_me
-    return render_template('edit_profile.html', form=form)
+    return render_template("edit_profile.html", form=form)
 
-@main.route('/edit-profile/<int:id>', methods=['GET', 'POST'])
+
+@main.route("/edit-profile/<int:id>", methods=["GET", "POST"])
 @login_required
 @admin_required
 def edit_profile_admin(id):
@@ -49,8 +52,8 @@ def edit_profile_admin(id):
         user.about_me = form.about_me.data
         db.session.add(user)
         db.session.commit()
-        flash('The profile has been updated')
-        return redirect(url_for('.user', username=user.username))
+        flash("The profile has been updated")
+        return redirect(url_for(".user", username=user.username))
     form.email.data = user.email
     form.username.data = user.username
     form.confirmed.data = user.confirmed
@@ -58,4 +61,4 @@ def edit_profile_admin(id):
     form.name.data = user.name
     form.location.data = user.location
     form.about_me.data = user.about_me
-    return render_template('edit_profile.html', form=form, user=user)
+    return render_template("edit_profile.html", form=form, user=user)

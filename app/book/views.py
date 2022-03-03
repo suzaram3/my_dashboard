@@ -21,7 +21,9 @@ def delete_book(book_id):
 @book.route("/books")
 @login_required
 def books():
-    books = Book.query.filter_by(user_id=current_user.id).order_by(Book.book_author).all()
+    books = (
+        Book.query.filter_by(user_id=current_user.id).order_by(Book.book_author).all()
+    )
     return render_template("book/books.html", title="books", books=books)
 
 

@@ -24,8 +24,10 @@ def delete_contact(contact_id):
 def contacts():
     if current_user.is_authenticated:
         contacts = Contact.query.filter_by(user_id=current_user.id).all()
-        #.order_by(Contact.first).all()
-        return render_template("cont/contacts.html", title="Contacts", contacts=contacts)
+        # .order_by(Contact.first).all()
+        return render_template(
+            "cont/contacts.html", title="Contacts", contacts=contacts
+        )
 
 
 @cont.route("/contacts/<int:contact_id>", methods=["GET"])

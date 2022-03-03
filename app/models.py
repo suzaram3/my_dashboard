@@ -2,7 +2,7 @@ from datetime import date, datetime, timedelta
 from http import client
 import hashlib
 
-from flask import current_app,  request
+from flask import current_app, request
 from flask_login import AnonymousUserMixin, UserMixin
 from itsdangerous.url_safe import URLSafeSerializer
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -34,7 +34,7 @@ class Book(db.Model):
     book_author = db.Column(db.String(64), nullable=False)
     book_shelf = db.Column(db.String(64))
     book_read = db.Column(db.Integer)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
 
     def __repr__(self):
         return f"<Book: {self.book_title} by {self.book_author.title()}>"
@@ -51,7 +51,7 @@ class Contact(db.Model):
     last_contact = db.Column(db.String(10), default=today.strftime("%Y-%m-%d"))
     next_contact = db.Column(db.String(10))
     notes = db.Column(db.String)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
 
     def update_next_contact(self):
         if self.last_contact is not None:
@@ -103,9 +103,13 @@ class Role(db.Model):
     def insert_roles():
         roles = {
             "User": [Permission.FOLLOW, Permission.COMMENT, Permission.WRITE],
-            "Admin": [Permission.FOLLOW, Permission.COMMENT,
-                              Permission.WRITE, Permission.MODERATE,
-                              Permission.ADMIN],
+            "Admin": [
+                Permission.FOLLOW,
+                Permission.COMMENT,
+                Permission.WRITE,
+                Permission.MODERATE,
+                Permission.ADMIN,
+            ],
         }
         default_role = "User"
         for r in roles:
@@ -115,7 +119,7 @@ class Role(db.Model):
             role.reset_permissions()
             for perm in roles[r]:
                 role.add_permissions(perm)
-            role.default = (role.name == default_role)
+            role.default = role.name == default_role
             db.session.add(role)
         db.session.commit()
 
@@ -151,12 +155,12 @@ class User(UserMixin, db.Model):
     def change_email(self, token):
         s = URLSafeSerializer(current_app.config["SECRET_KEY"])
         try:
-            data = s.loads(token.encode('utf-8'))
+            data = s.loads(token.encode("utf-8"))
         except:
             return False
-        if data.get('change_email') != self.id:
+        if data.get("change_email") != self.id:
             return False
-        new_email = data.get('new_email')
+        new_email = data.get("new_email")
         if new_email is None:
             return False
         if self.query.filter_by(email=new_email).first() is not None:
@@ -182,16 +186,16 @@ class User(UserMixin, db.Model):
         s = URLSafeSerializer(current_app.config["SECRET_KEY"])
         return s.dumps({"confirm": self.id})
 
-    def gravatar(self, size=100, default='identicon', rating='g'):
+    def gravatar(self, size=100, default="identicon", rating="g"):
         if request.is_secure:
-            url = 'https://secure.gravatar.com/avatar'
+            url = "https://secure.gravatar.com/avatar"
         else:
-            url = 'http://secure.gravatar.com/avatar'
+            url = "http://secure.gravatar.com/avatar"
         hash = self.avatar_hash or self.gravatar_hash()
-        return f'{url}/{hash}?s={size}&d={default}&r={rating}'
+        return f"{url}/{hash}?s={size}&d={default}&r={rating}"
 
     def gravatar_hash(self):
-        return hashlib.md5(self.email.lower().encode('utf-8')).hexdigest()
+        return hashlib.md5(self.email.lower().encode("utf-8")).hexdigest()
 
     def is_administrator(self):
         return self.can(Permission.ADMIN)
@@ -218,7 +222,7 @@ class Task(db.Model):
     description = db.Column(db.String(40), nullable=False)
     due_date = db.Column(db.String(10), nullable=False)
     status = db.Column(db.String(10), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
 
     def __repr__(self):
         return f"Task({self.description}, {self.due_date}, {self.status})"
